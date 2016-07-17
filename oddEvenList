@@ -1,0 +1,38 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode oddEvenList(ListNode head) {
+      int i = 1;
+        ListNode cur = null, oddHead = head, evenHead = null, oddTail = oddHead, evenTail = null; //初始值
+        if(oddHead == null)            //空串
+            return head;
+        else {
+            evenHead = oddHead.next;   //偶数位等于奇数位的下一个
+            evenTail = evenHead;
+        }
+        if(evenHead == null)        //如果只有一个数
+            return head;
+        cur = evenTail.next;  
+        while(cur != null){       //如果第三位不为空
+            if(i % 2 == 1){           //当cur时奇数位，oddTail指向当前位
+                oddTail.next = cur; 
+                oddTail = cur;
+            } else {
+                evenTail.next = cur;  
+                evenTail = cur;
+            }
+             cur = cur.next;        //current指向下一位
+             i++;
+        }
+        evenTail.next = null;          //  防止循环
+        oddTail.next = evenHead;     //奇偶连接起来
+        return oddHead;
+          
+    }
+}
