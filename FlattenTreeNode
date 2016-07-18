@@ -22,3 +22,37 @@ public class Solution {
         }  
     }
 }
+
+
+
+
+/*
+interviewer's solution
+*/
+public void flattenRecursive(TreeNode root) {
+    helper(root);
+}
+
+private TreeNode helper(TreeNode root) {
+    if (root == null) {
+        return null;
+    }
+    
+    TreeNode leftTail = helper(root.left);
+    TreeNode rightTail = helper(root.right);
+    
+    if (leftTail != null) {
+        leftTail.right = root.right;
+        
+        root.right = root.left;
+        root.left = null;
+    }
+    
+    if (leftTail == null && rightTail == null) {
+        return root;
+    } else if (rightTail != null) {
+        return rightTail;
+    } else {
+        return leftTail;
+    }
+}
