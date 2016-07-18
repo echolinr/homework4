@@ -56,3 +56,26 @@ private TreeNode helper(TreeNode root) {
         return leftTail;
     }
 }
+
+/*
+interview's solution 2 , nonrecursive way
+*/
+
+public void flattenRecursive(TreeNode root) {
+    TreeNode currNode = root;
+    while (currNode != null) {
+        if (currNode.left != null) {
+            // search for the rightmost leaf node
+            TreeNode rightmost = currNode.left;
+            while (rightmost.right != null) {
+                rightmost = rightmost.right;
+            }
+            
+            rightmost.right = currNode.right;
+            currNode.right = currNode.left;
+            currNode.left = null;
+        }
+        
+        currNode = currNode.right;
+    }
+}
